@@ -468,3 +468,225 @@ function(){
 loadStudy();
 
 });
+
+// ==========================
+// 퀴즈 시스템
+// ==========================
+
+
+let quizAnswer = "";
+
+let quizScore = 0;
+
+let quizCount = 0;
+
+
+
+function startQuiz(){
+
+quizScore = 0;
+
+quizCount = 0;
+
+nextQuiz();
+
+}
+
+
+
+
+function nextQuiz(){
+
+
+let randomIndex = 
+Math.floor(Math.random()*n3Kanji.length);
+
+
+let question = n3Kanji[randomIndex];
+
+
+quizAnswer = question.meaning;
+
+
+
+let choices = [
+question.meaning
+];
+
+
+
+while(choices.length < 4){
+
+let random =
+n3Kanji[
+Math.floor(Math.random()*n3Kanji.length)
+].meaning;
+
+
+if(!choices.includes(random)){
+
+choices.push(random);
+
+}
+
+}
+
+
+
+choices.sort(
+()=>Math.random()-0.5
+);
+
+
+
+let html = `
+
+
+<h2>
+문제 ${quizCount+1}
+</h2>
+
+
+<h1>
+${question.kanji}
+</h1>
+
+
+<p>
+뜻을 고르세요
+</p>
+
+
+
+`;
+
+
+
+choices.forEach(choice=>{
+
+
+html += `
+
+<button onclick="checkAnswer('${choice}')">
+
+${choice}
+
+</button>
+
+<br>
+
+`;
+
+});
+
+
+
+document.getElementById("quizBox").innerHTML = html;
+
+
+
+}
+
+
+
+
+function checkAnswer(answer){
+
+
+if(answer === quizAnswer){
+
+
+quizScore++;
+
+
+addExp(20);
+
+
+alert(
+"🎉 정답! +20 EXP"
+);
+
+
+}else{
+
+
+alert(
+"😢 오답!\n정답: "
++ quizAnswer
+);
+
+
+}
+
+
+
+quizCount++;
+
+
+
+if(quizCount < 10){
+
+nextQuiz();
+
+
+}else{
+
+
+document.getElementById("quizBox").innerHTML = `
+
+
+<h2>
+퀴즈 종료!
+</h2>
+
+
+<p>
+점수:
+${quizScore} / 10
+</p>
+
+
+<button onclick="startQuiz()">
+
+다시하기
+
+</button>
+
+
+`;
+
+}
+
+
+}
+
+function addExp(amount){
+
+let exp =
+Number(
+localStorage.getItem("exp")
+) || 0;
+
+
+exp += amount;
+
+
+localStorage.setItem(
+"exp",
+exp
+);
+
+
+
+let expBox =
+document.getElementById("exp");
+
+
+if(expBox){
+
+expBox.innerText = exp;
+
+}
+
+
+}
