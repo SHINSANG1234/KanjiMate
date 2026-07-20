@@ -22,7 +22,10 @@
 <div class="app">
 
 
-<!-- 홈 화면 -->
+<!-- =================
+홈 화면
+================= -->
+
 
 <section id="home" class="page">
 
@@ -38,7 +41,6 @@
 
 
 <section class="profile">
-
 
 <div>
 ⭐ Lv.<span id="level">1</span>
@@ -60,11 +62,10 @@ EXP <span id="exp">0</span>/100
 
 
 
+
 <section class="daily">
 
-
 <h2>오늘의 목표</h2>
-
 
 <p>
 신규 한자 5개 학습
@@ -85,10 +86,13 @@ EXP <span id="exp">0</span>/100
 
 
 
+
 <section class="study-card">
 
 
-<h2>오늘의 한자</h2>
+<h2>
+오늘의 한자
+</h2>
 
 
 
@@ -100,11 +104,9 @@ EXP <span id="exp">0</span>/100
 </h1>
 
 
-
 <h2 id="meaning">
 배우다
 </h2>
-
 
 
 <p>
@@ -115,7 +117,6 @@ EXP <span id="exp">0</span>/100
 </p>
 
 
-
 <p>
 훈독 :
 <span id="kunyomi">
@@ -124,21 +125,17 @@ EXP <span id="exp">0</span>/100
 </p>
 
 
-
 <h3>
 단어
 </h3>
 
 
 <p id="words">
-学校（がっこう） 학생
+学校（がっこう）
 </p>
 
 
-
-<p id="example">
-
-</p>
+<p id="example"></p>
 
 
 </div>
@@ -166,7 +163,6 @@ EXP <span id="exp">0</span>/100
 
 
 
-
 <button class="next" onclick="nextKanji()">
 
 다음 한자 →
@@ -190,7 +186,6 @@ EXP <span id="exp">0</span>/100
 </h2>
 
 
-
 <div id="book">
 
 아직 학습한 한자가 없습니다.
@@ -201,6 +196,7 @@ EXP <span id="exp">0</span>/100
 </section>
 
 
+
 </section>
 
 
@@ -211,12 +207,17 @@ EXP <span id="exp">0</span>/100
 
 
 
-<!-- 학습 화면 -->
+<!-- =================
+학습 화면
+================= -->
+
 
 <section id="study" class="page" style="display:none;">
 
 
-<h1>📚 학습</h1>
+<h1>
+📚 학습
+</h1>
 
 
 <p>
@@ -240,12 +241,19 @@ EXP <span id="exp">0</span>/100
 
 
 
-<!-- 퀴즈 화면 -->
+
+<!-- =================
+퀴즈 화면
+================= -->
+
 
 <section id="quiz" class="page" style="display:none;">
 
 
-<h1>⚔️ 한자 퀴즈</h1>
+<h1>
+⚔️ 한자 퀴즈
+</h1>
+
 
 
 <div id="quizBox">
@@ -267,3 +275,157 @@ EXP <span id="exp">0</span>/100
 
 
 </section>
+
+
+
+
+
+
+
+
+
+<!-- =================
+성장 화면
+================= -->
+
+
+<section id="growth" class="page" style="display:none;">
+
+
+<h1>
+🌱 성장
+</h1>
+
+
+
+<h2>
+나의 학습 기록
+</h2>
+
+
+
+<p>
+현재 레벨 :
+<span id="growthLevel">
+1
+</span>
+</p>
+
+
+
+<p>
+총 EXP :
+<span id="growthExp">
+0
+</span>
+</p>
+
+
+
+<p>
+학습한 한자 :
+<span id="growthCount">
+0
+</span>
+/200
+</p>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =================
+하단 메뉴
+================= -->
+
+
+<nav class="bottom-nav">
+
+
+<button data-page="home">
+
+🏠
+
+<span>
+홈
+</span>
+
+</button>
+
+
+
+
+<button data-page="study">
+
+📚
+
+<span>
+학습
+</span>
+
+</button>
+
+
+
+
+<button data-page="quiz">
+
+⚔️
+
+<span>
+퀴즈
+</span>
+
+</button>
+
+
+
+
+<button data-page="growth">
+
+🌱
+
+<span>
+성장
+</span>
+
+</button>
+
+
+
+</nav>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<!-- 한자 데이터 -->
+
+<script src="data/n3_kanji.js"></script>
+
+
+
+<!-- 앱 기능 -->
+
+<script src="script.js"></script>
+
+
+
+</body>
+
+</html>
