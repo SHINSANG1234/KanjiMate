@@ -33,30 +33,38 @@
 
 <section class="profile">
 
+
 <div>
 ⭐ Lv.<span id="level">1</span>
 </div>
+
 
 <div>
 EXP <span id="exp">0</span>/100
 </div>
 
+
 <div>
 📚 <span id="learnedCount">0</span>/200
 </div>
+
 
 </section>
 
 
 
 
+
 <section class="daily">
 
+
 <h2>오늘의 목표</h2>
+
 
 <p>
 신규 한자 5개 학습
 </p>
+
 
 <div class="progress">
 
@@ -64,7 +72,9 @@ EXP <span id="exp">0</span>/100
 
 </div>
 
+
 </section>
+
 
 
 
@@ -76,16 +86,20 @@ EXP <span id="exp">0</span>/100
 <h2>오늘의 한자</h2>
 
 
+
 <div class="kanji">
+
 
 <h1 id="kanji">
 学
 </h1>
 
 
+
 <h2 id="meaning">
 배우다
 </h2>
+
 
 
 <p>
@@ -96,6 +110,7 @@ EXP <span id="exp">0</span>/100
 </p>
 
 
+
 <p>
 훈독 :
 <span id="kunyomi">
@@ -104,7 +119,21 @@ EXP <span id="exp">0</span>/100
 </p>
 
 
+
+<h3>
+단어
+</h3>
+
+
+<p id="words">
+학교
+</p>
+
+
+
 </div>
+
+
 
 
 
@@ -117,6 +146,7 @@ EXP <span id="exp">0</span>/100
 </button>
 
 
+
 <button onclick="remember(false)">
 😵 다시 보기
 </button>
@@ -125,8 +155,12 @@ EXP <span id="exp">0</span>/100
 </div>
 
 
+
+
 <button class="next" onclick="nextKanji()">
+
 다음 한자 →
+
 </button>
 
 
@@ -137,10 +171,15 @@ EXP <span id="exp">0</span>/100
 
 
 
+
+
 <section class="collection">
 
 
-<h2>📖 나의 한자 도감</h2>
+<h2>
+📖 나의 한자 도감
+</h2>
+
 
 
 <div id="book">
@@ -150,13 +189,16 @@ EXP <span id="exp">0</span>/100
 </div>
 
 
+
 </section>
 
 
 
 
 
+
 <nav>
+
 
 <button>
 🏠 홈
@@ -178,7 +220,10 @@ EXP <span id="exp">0</span>/100
 </button>
 
 
+
 </nav>
+
+
 
 
 
@@ -186,7 +231,17 @@ EXP <span id="exp">0</span>/100
 
 
 
+
+
+<!-- 한자 데이터 먼저 불러오기 -->
+
+<script src="data/n3_kanji.js"></script>
+
+
+<!-- 앱 기능 -->
+
 <script src="script.js"></script>
+
 
 
 </body>
