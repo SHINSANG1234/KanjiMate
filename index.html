@@ -1,35 +1,195 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KanjiMate N3</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KanjiMate</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="manifest" href="manifest.json">
+
 </head>
+
 
 <body>
 
-<h1>📚 KanjiMate N3</h1>
+<div class="app">
+
+
+<header>
+
+<h1>🐱 KanjiMate</h1>
+
+<p>JLPT N3 한자 마스터</p>
+
+</header>
+
+
+
+<section class="profile">
+
+<div>
+⭐ Lv.<span id="level">1</span>
+</div>
+
+<div>
+EXP <span id="exp">0</span>/100
+</div>
+
+<div>
+📚 <span id="learnedCount">0</span>/200
+</div>
+
+</section>
+
+
+
+
+<section class="daily">
+
+<h2>오늘의 목표</h2>
+
+<p>
+신규 한자 5개 학습
+</p>
+
+<div class="progress">
+
+<div id="progressBar"></div>
+
+</div>
+
+</section>
+
+
+
+
+
+<section class="study-card">
+
 
 <h2>오늘의 한자</h2>
 
-<div>
-  <h1>学</h1>
 
-  <h3>배우다</h3>
+<div class="kanji">
 
-  <p>음독 : がく</p>
-  <p>훈독 : まなぶ</p>
+<h1 id="kanji">
+学
+</h1>
 
-  <hr>
 
-  <p>学校（がっこう） - 학교</p>
-  <p>学生（がくせい） - 학생</p>
-  <p>大学（だいがく） - 대학</p>
+<h2 id="meaning">
+배우다
+</h2>
+
+
+<p>
+음독 :
+<span id="onyomi">
+がく
+</span>
+</p>
+
+
+<p>
+훈독 :
+<span id="kunyomi">
+まなぶ
+</span>
+</p>
+
+
 </div>
 
-<button>
-다음 한자
+
+
+
+<div class="buttons">
+
+
+<button onclick="remember(true)">
+😎 알고 있어요
 </button>
 
+
+<button onclick="remember(false)">
+😵 다시 보기
+</button>
+
+
+</div>
+
+
+<button class="next" onclick="nextKanji()">
+다음 한자 →
+</button>
+
+
+
+</section>
+
+
+
+
+
+<section class="collection">
+
+
+<h2>📖 나의 한자 도감</h2>
+
+
+<div id="book">
+
+아직 학습한 한자가 없습니다.
+
+</div>
+
+
+</section>
+
+
+
+
+
+<nav>
+
+<button>
+🏠 홈
+</button>
+
+
+<button>
+📚 학습
+</button>
+
+
+<button>
+⚔️ 퀴즈
+</button>
+
+
+<button>
+🌱 성장
+</button>
+
+
+</nav>
+
+
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+
 </body>
+
+
 </html>
