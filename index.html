@@ -18,7 +18,13 @@
 
 <body>
 
+
 <div class="app">
+
+
+<!-- 홈 화면 -->
+
+<section id="home" class="page">
 
 
 <header>
@@ -50,7 +56,6 @@ EXP <span id="exp">0</span>/100
 
 
 </section>
-
 
 
 
@@ -126,13 +131,17 @@ EXP <span id="exp">0</span>/100
 
 
 <p id="words">
-학교
+学校（がっこう） 학생
 </p>
 
 
 
-</div>
+<p id="example">
 
+</p>
+
+
+</div>
 
 
 
@@ -157,6 +166,7 @@ EXP <span id="exp">0</span>/100
 
 
 
+
 <button class="next" onclick="nextKanji()">
 
 다음 한자 →
@@ -166,7 +176,6 @@ EXP <span id="exp">0</span>/100
 
 
 </section>
-
 
 
 
@@ -189,6 +198,8 @@ EXP <span id="exp">0</span>/100
 </div>
 
 
+</section>
+
 
 </section>
 
@@ -197,31 +208,159 @@ EXP <span id="exp">0</span>/100
 
 
 
-<nav>
+
+
+
+<!-- 학습 화면 -->
+
+<section id="study" class="page" style="display:none;">
+
+
+<h1>📚 학습</h1>
+
+
+<p>
+200개의 JLPT N3 한자를 학습합니다.
+</p>
+
+
+<div id="studyList">
+
+한자 목록 준비중
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- 퀴즈 화면 -->
+
+<section id="quiz" class="page" style="display:none;">
+
+
+<h1>⚔️ 퀴즈</h1>
+
+
+<p>
+한자 뜻 맞추기 퀴즈 준비중
+</p>
 
 
 <button>
-🏠 홈
+퀴즈 시작
 </button>
 
 
-<button>
-📚 학습
+</section>
+
+
+
+
+
+
+
+
+
+<!-- 성장 화면 -->
+
+<section id="growth" class="page" style="display:none;">
+
+
+<h1>🌱 성장</h1>
+
+
+<h2>
+나의 학습 기록
+</h2>
+
+
+<p>
+현재 레벨 :
+<span id="growthLevel">
+1
+</span>
+</p>
+
+
+<p>
+총 EXP :
+<span id="growthExp">
+0
+</span>
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- 하단 메뉴 -->
+
+
+<nav class="bottom-nav">
+
+
+<button data-page="home">
+
+🏠
+
+<span>
+홈
+</span>
+
 </button>
 
 
-<button>
-⚔️ 퀴즈
+
+<button data-page="study">
+
+📚
+
+<span>
+학습
+</span>
+
 </button>
 
 
-<button>
-🌱 성장
+
+<button data-page="quiz">
+
+⚔️
+
+<span>
+퀴즈
+</span>
+
 </button>
 
+
+
+<button data-page="growth">
+
+🌱
+
+<span>
+성장
+</span>
+
+</button>
 
 
 </nav>
+
 
 
 
@@ -233,18 +372,18 @@ EXP <span id="exp">0</span>/100
 
 
 
-<!-- 한자 데이터 먼저 불러오기 -->
+
+<!-- 데이터 -->
 
 <script src="data/n3_kanji.js"></script>
 
 
-<!-- 앱 기능 -->
+<!-- 기능 -->
 
 <script src="script.js"></script>
 
 
 
 </body>
-
 
 </html>
