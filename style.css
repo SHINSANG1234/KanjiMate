@@ -16,6 +16,8 @@ body {
 
 
 
+/* 앱 전체 */
+
 .app {
 
     max-width:430px;
@@ -26,10 +28,15 @@ body {
 
     padding:20px;
 
+    padding-bottom:100px;
+
 }
 
 
 
+
+
+/* 헤더 */
 
 header {
 
@@ -40,13 +47,15 @@ header {
 }
 
 
+
 header h1 {
 
     font-size:28px;
 
-    margin-bottom:5px;
+    margin:0 0 5px;
 
 }
+
 
 
 header p {
@@ -59,19 +68,55 @@ header p {
 
 
 
+/* 페이지 */
+
+.page {
+
+    animation:fade 0.3s ease;
+
+}
+
+
+@keyframes fade {
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(10px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+
+
+/* 프로필 */
+
 .profile {
 
     display:flex;
 
-    justify-content:space-between;
+    justify-content:space-around;
 
     background:white;
 
-    padding:15px;
+    padding:18px;
 
     border-radius:20px;
 
-    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
 
     margin-bottom:20px;
 
@@ -82,6 +127,8 @@ header p {
 
 
 
+
+/* 오늘 목표 */
 
 .daily {
 
@@ -94,6 +141,8 @@ header p {
     margin-bottom:20px;
 
 }
+
+
 
 
 
@@ -113,7 +162,9 @@ header p {
 
 
 
-#progressBar {
+#progressBar,
+
+#growthBar {
 
     width:0%;
 
@@ -121,14 +172,17 @@ header p {
 
     background:#6c63ff;
 
+    transition:0.5s;
+
 }
 
 
 
 
 
-.study-card {
+/* 한자 카드 */
 
+.study-card {
 
     background:white;
 
@@ -138,19 +192,19 @@ header p {
 
     text-align:center;
 
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
 
 }
 
 
 
+
+
 .kanji h1 {
 
-    font-size:80px;
+    font-size:90px;
 
     margin:20px;
-
-    color:#333;
 
 }
 
@@ -163,6 +217,10 @@ header p {
 }
 
 
+
+
+
+/* 버튼 */
 
 .buttons {
 
@@ -188,9 +246,9 @@ button {
 
     cursor:pointer;
 
-    background:#eee;
-
 }
+
+
 
 
 
@@ -225,6 +283,9 @@ button {
 
 
 
+
+/* 도감 */
+
 .collection {
 
     background:white;
@@ -240,31 +301,180 @@ button {
 
 
 
-nav {
 
-    position:sticky;
+/* 학습 */
 
-    bottom:0;
-
-    margin-top:30px;
-
-    display:flex;
-
-    justify-content:space-around;
+#studyList {
 
     background:white;
 
-    padding:12px;
+    padding:20px;
 
     border-radius:20px;
 
 }
 
 
-nav button {
+
+
+
+/* 퀴즈 */
+
+#quizBox {
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+}
+
+
+
+
+
+#quizBox button {
+
+    width:100%;
+
+    margin:8px 0;
+
+    background:#eeeeff;
+
+}
+
+
+
+
+
+/* 성장 */
+
+.growth-card {
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+}
+
+
+
+.exp-box {
+
+    font-size:20px;
+
+    margin:20px;
+
+}
+
+
+
+
+
+/* 하단 메뉴 */
+
+.bottom-nav {
+
+
+    position:fixed;
+
+
+    bottom:10px;
+
+
+    left:50%;
+
+
+    transform:translateX(-50%);
+
+
+    width:calc(100% - 40px);
+
+
+    max-width:390px;
+
+
+    background:white;
+
+
+    display:flex;
+
+
+    justify-content:space-around;
+
+
+    align-items:center;
+
+
+    padding:12px;
+
+
+    border-radius:25px;
+
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+
+
+    z-index:999;
+
+
+}
+
+
+
+.bottom-nav button {
+
 
     background:none;
 
+
+    padding:8px;
+
+
     font-size:14px;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    align-items:center;
+
+
+}
+
+
+
+
+
+/* 모바일 */
+
+@media(max-width:430px){
+
+
+.app{
+
+padding:15px;
+
+}
+
+
+.kanji h1{
+
+font-size:75px;
+
+}
+
 
 }
