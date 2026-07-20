@@ -280,3 +280,28 @@ userData.learned
 // 시작
 
 updateScreen();
+
+// 하단 메뉴 이동 기능
+
+const navItems = document.querySelectorAll(".bottom-nav button");
+
+navItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const page = item.dataset.page;
+
+        document.querySelectorAll(".page").forEach(section=>{
+            section.style.display="none";
+        });
+
+
+        const target = document.getElementById(page);
+
+        if(target){
+            target.style.display="block";
+        }
+
+    });
+
+});
