@@ -288,122 +288,94 @@ EXP <span id="exp">0</span>/100
 성장 화면
 ================= -->
 
-
 <section id="growth" class="page" style="display:none;">
 
 
 <h1>
-🌱 성장
+🌱 나의 성장
 </h1>
 
 
 
-<h2>
-나의 학습 기록
+<div class="growth-card">
+
+
+<h2 id="title">
+
+🐣 한자 새싹
+
 </h2>
 
 
 
-<p>
-현재 레벨 :
-<span id="growthLevel">
+<h3>
+
+Lv.<span id="growthLevel">
 1
 </span>
-</p>
+
+</h3>
 
 
 
-<p>
-총 EXP :
+<div class="exp-box">
+
+EXP
+
 <span id="growthExp">
 0
 </span>
-</p>
+
+/
+
+<span id="maxExp">
+100
+</span>
+
+
+</div>
+
+
+
+<div class="progress">
+
+<div id="growthBar">
+
+</div>
+
+</div>
+
 
 
 
 <p>
-학습한 한자 :
+
+📚 학습한 한자
+
 <span id="growthCount">
 0
 </span>
-/200
+
+/
+
+200
+
 </p>
 
 
 
-</section>
 
+<p>
 
+🔥 연속 학습
 
-
-
-
-
-
-
-<!-- =================
-하단 메뉴
-================= -->
-
-
-<nav class="bottom-nav">
-
-
-<button data-page="home">
-
-🏠
-
-<span>
-홈
+<span id="streak">
+0
 </span>
 
-</button>
+일
 
-
-
-
-<button data-page="study">
-
-📚
-
-<span>
-학습
-</span>
-
-</button>
-
-
-
-
-<button data-page="quiz">
-
-⚔️
-
-<span>
-퀴즈
-</span>
-
-</button>
-
-
-
-
-<button data-page="growth">
-
-🌱
-
-<span>
-성장
-</span>
-
-</button>
-
-
-
-</nav>
-
-
+</p>
 
 
 
@@ -411,21 +383,5 @@ EXP <span id="exp">0</span>/100
 
 
 
+</section>  
 
-
-
-<!-- 한자 데이터 -->
-
-<script src="data/n3_kanji.js"></script>
-
-
-
-<!-- 앱 기능 -->
-
-<script src="script.js"></script>
-
-
-
-</body>
-
-</html>
