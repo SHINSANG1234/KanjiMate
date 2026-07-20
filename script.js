@@ -305,3 +305,166 @@ navItems.forEach(item => {
     });
 
 });
+
+// ==========================
+// 학습 탭 기능
+// ==========================
+
+let studyIndex = 0;
+
+let learnedKanji = JSON.parse(
+localStorage.getItem("learnedKanji")
+) || [];
+
+
+
+function loadStudy(){
+
+const data = n3Kanji[studyIndex];
+
+
+document.getElementById("studyList").innerHTML = `
+
+<div class="study-box">
+
+<h1>${data.kanji}</h1>
+
+<h2>${data.meaning}</h2>
+
+
+<p>
+음독 : ${data.onyomi}
+</p>
+
+
+<p>
+훈독 : ${data.kunyomi || "없음"}
+</p>
+
+
+<h3>단어</h3>
+
+<p>
+${data.words.join("<br>")}
+</p>
+
+
+<p>
+예문 :
+${data.example}
+</p>
+
+
+<button onclick="completeStudy()">
+✅ 학습 완료
+</button>
+
+
+<p>
+${studyIndex + 1} / ${n3Kanji.length}
+</p>
+
+
+</div>
+
+
+<button onclick="prevKanji()">
+⬅ 이전
+</button>
+
+
+<button onclick="nextStudyKanji()">
+다음 ➡
+</button>
+
+`;
+
+}
+
+
+
+
+function nextStudyKanji(){
+
+if(studyIndex < n3Kanji.length-1){
+
+studyIndex++;
+
+}
+
+loadStudy();
+
+}
+
+
+
+
+function prevKanji(){
+
+if(studyIndex > 0){
+
+studyIndex--;
+
+}
+
+loadStudy();
+
+}
+
+
+
+
+function completeStudy(){
+
+let current = n3Kanji[studyIndex].kanji;
+
+
+if(!learnedKanji.includes(current)){
+
+learnedKanji.push(current);
+
+localStorage.setItem(
+"learnedKanji",
+JSON.stringify(learnedKanji)
+);
+
+}
+
+
+updateGrowth();
+
+
+alert("학습 완료! 🎉");
+
+}
+
+
+
+
+function updateGrowth(){
+
+let count = learnedKanji.length;
+
+
+document.getElementById("learnedCount").innerText=count;
+
+
+document.getElementById("progressBar").style.width =
+(count / n3Kanji.length * 100)+"%";
+
+}
+
+
+
+
+// 학습 버튼 클릭 시 실행
+
+document.querySelector(
+'[data-page="study"]'
+).addEventListener(
+"click",
+function(){
+
+loadStudy();
+
+});
