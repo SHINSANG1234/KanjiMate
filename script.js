@@ -1,65 +1,24 @@
-// KanjiMate 학습 데이터
-// 나중에 이 부분을 N3 200개 데이터로 확장
+// KanjiMate 앱 데이터 연결
 
-const kanjiList = [
-
-{
-kanji:"学",
-meaning:"배우다",
-onyomi:"がく",
-kunyomi:"まなぶ"
-},
-
-{
-kanji:"生",
-meaning:"나다, 살다",
-onyomi:"せい",
-kunyomi:"いきる"
-},
-
-{
-kanji:"先",
-meaning:"먼저",
-onyomi:"せん",
-kunyomi:"さき"
-},
-
-{
-kanji:"時",
-meaning:"시간",
-onyomi:"じ",
-kunyomi:"とき"
-},
-
-{
-kanji:"日",
-meaning:"날, 해",
-onyomi:"にち",
-kunyomi:"ひ"
-}
-
-];
+const kanjiList = n3Kanji;
 
 
-
-// 현재 위치
+// 현재 한자 위치
 
 let current = 0;
 
 
 
-// 저장 데이터
+// 사용자 저장 데이터
 
 let userData = JSON.parse(
 localStorage.getItem("kanjiMate")
 )
 ||
 {
-
 level:1,
 exp:0,
 learned:[]
-
 };
 
 
@@ -89,19 +48,16 @@ let percent =
 
 
 document.getElementById("progressBar").style.width =
-percent+"%";
+percent + "%";
 
 
 
 showKanji();
 
-
 showBook();
 
 
 }
-
-
 
 
 
@@ -131,9 +87,17 @@ document.getElementById("kunyomi").innerText =
 data.kunyomi;
 
 
+if(data.words){
+
+
+document.getElementById("words").innerHTML =
+data.words.join("<br>");
+
+
 }
 
 
+}
 
 
 
@@ -149,7 +113,7 @@ current++;
 
 if(current >= kanjiList.length){
 
-current=0;
+current = 0;
 
 }
 
@@ -178,24 +142,19 @@ kanjiList[current];
 if(isKnow){
 
 
-
 if(!userData.learned.includes(data.kanji)){
 
 
 userData.learned.push(data.kanji);
 
 
-userData.exp +=10;
+userData.exp += 10;
 
 
-checkLevel();
+levelCheck();
 
 
 saveData();
-
-
-}
-
 
 
 alert(
@@ -203,16 +162,17 @@ alert(
 );
 
 
-
 }
 
+
+}
 
 
 else{
 
 
 alert(
-"💪 다시 한번 복습해봐요!"
+"📚 다시 복습해봐요!"
 );
 
 
@@ -231,9 +191,9 @@ updateScreen();
 
 
 
-// 레벨 시스템
+// 레벨업
 
-function checkLevel(){
+function levelCheck(){
 
 
 if(userData.exp >=100){
@@ -281,7 +241,6 @@ JSON.stringify(userData)
 
 
 
-
 // 도감
 
 function showBook(){
@@ -289,6 +248,7 @@ function showBook(){
 
 let book =
 document.getElementById("book");
+
 
 
 if(userData.learned.length===0){
@@ -306,7 +266,7 @@ return;
 
 book.innerHTML =
 userData.learned
-.map(k=>"✅ "+k)
+.map(item=>"✅ "+item)
 .join("<br>");
 
 
