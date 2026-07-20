@@ -22,9 +22,9 @@
 <div class="app">
 
 
-<!-- =================
+<!-- =====================
 홈 화면
-================= -->
+===================== -->
 
 
 <section id="home" class="page">
@@ -41,6 +41,7 @@
 
 
 <section class="profile">
+
 
 <div>
 ⭐ Lv.<span id="level">1</span>
@@ -86,7 +87,6 @@ EXP <span id="exp">0</span>/100
 
 
 
-
 <section class="study-card">
 
 
@@ -104,9 +104,11 @@ EXP <span id="exp">0</span>/100
 </h1>
 
 
+
 <h2 id="meaning">
 배우다
 </h2>
+
 
 
 <p>
@@ -117,6 +119,7 @@ EXP <span id="exp">0</span>/100
 </p>
 
 
+
 <p>
 훈독 :
 <span id="kunyomi">
@@ -125,14 +128,17 @@ EXP <span id="exp">0</span>/100
 </p>
 
 
+
 <h3>
 단어
 </h3>
 
 
+
 <p id="words">
 学校（がっこう）
 </p>
+
 
 
 <p id="example"></p>
@@ -170,8 +176,8 @@ EXP <span id="exp">0</span>/100
 </button>
 
 
-
 </section>
+
 
 
 
@@ -196,7 +202,6 @@ EXP <span id="exp">0</span>/100
 </section>
 
 
-
 </section>
 
 
@@ -207,9 +212,9 @@ EXP <span id="exp">0</span>/100
 
 
 
-<!-- =================
+<!-- =====================
 학습 화면
-================= -->
+===================== -->
 
 
 <section id="study" class="page" style="display:none;">
@@ -221,8 +226,9 @@ EXP <span id="exp">0</span>/100
 
 
 <p>
-200개의 JLPT N3 한자를 학습합니다.
+JLPT N3 한자 200개 학습
 </p>
+
 
 
 <div id="studyList">
@@ -242,9 +248,9 @@ EXP <span id="exp">0</span>/100
 
 
 
-<!-- =================
+<!-- =====================
 퀴즈 화면
-================= -->
+===================== -->
 
 
 <section id="quiz" class="page" style="display:none;">
@@ -284,9 +290,10 @@ EXP <span id="exp">0</span>/100
 
 
 
-<!-- =================
+<!-- =====================
 성장 화면
-================= -->
+===================== -->
+
 
 <section id="growth" class="page" style="display:none;">
 
@@ -308,17 +315,23 @@ EXP <span id="exp">0</span>/100
 
 
 
+
 <h3>
 
-Lv.<span id="growthLevel">
+Lv.
+
+<span id="growthLevel">
 1
 </span>
+
 
 </h3>
 
 
 
+
 <div class="exp-box">
+
 
 EXP
 
@@ -337,11 +350,10 @@ EXP
 
 
 
+
 <div class="progress">
 
-<div id="growthBar">
-
-</div>
+<div id="growthBar"></div>
 
 </div>
 
@@ -382,6 +394,99 @@ EXP
 </div>
 
 
+</section>
 
-</section>  
 
+
+
+
+
+
+
+
+<!-- =====================
+하단 메뉴
+===================== -->
+
+
+<nav class="bottom-nav">
+
+
+<button data-page="home">
+
+🏠
+
+<span>
+홈
+</span>
+
+</button>
+
+
+
+
+<button data-page="study">
+
+📚
+
+<span>
+학습
+</span>
+
+</button>
+
+
+
+
+<button data-page="quiz">
+
+⚔️
+
+<span>
+퀴즈
+</span>
+
+</button>
+
+
+
+
+<button data-page="growth">
+
+🌱
+
+<span>
+성장
+</span>
+
+</button>
+
+
+
+</nav>
+
+
+
+
+</div>
+
+
+
+
+
+
+<!-- 데이터 -->
+
+<script src="data/n3_kanji.js"></script>
+
+
+
+<!-- 기능 -->
+
+<script src="script.js"></script>
+
+
+
+</body>
+
+</html>
