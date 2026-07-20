@@ -693,3 +693,112 @@ expBox.innerText = exp;
 // 버튼 연결
 window.startQuiz = startQuiz;
 window.checkAnswer = checkAnswer;
+
+// ==========================
+// 성장 시스템
+// ==========================
+
+
+function updateGrowth(){
+
+
+let exp =
+Number(
+localStorage.getItem("exp")
+) || 0;
+
+
+
+let learned =
+JSON.parse(
+localStorage.getItem("learnedKanji")
+) || [];
+
+
+
+let level =
+Math.floor(exp / 100) + 1;
+
+
+
+let levelExp =
+exp % 100;
+
+
+
+document.getElementById(
+"growthLevel"
+).innerText = level;
+
+
+
+document.getElementById(
+"growthExp"
+).innerText = levelExp;
+
+
+
+document.getElementById(
+"growthCount"
+).innerText =
+learned.length;
+
+
+
+document.getElementById(
+"growthBar"
+).style.width =
+levelExp + "%";
+
+
+
+let title =
+"🐣 한자 새싹";
+
+
+
+if(level >= 3){
+
+title =
+"🌱 한자 탐험가";
+
+}
+
+
+if(level >= 5){
+
+title =
+"📚 N3 도전자";
+
+}
+
+
+if(level >= 10){
+
+title =
+"🏆 한자 마스터";
+
+}
+
+
+
+document.getElementById(
+"title"
+).innerText = title;
+
+
+
+}
+
+
+
+
+// 앱 시작 시 성장 정보 표시
+
+window.addEventListener(
+"load",
+function(){
+
+updateGrowth();
+
+});
