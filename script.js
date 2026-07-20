@@ -1,126 +1,84 @@
-// KanjiMate 앱 데이터 연결
+// ==========================
+// KanjiMate Main System
+// FINAL VERSION 1 / 4
+// ==========================
 
-const kanjiList = n3Kanji;
 
 
-// 현재 한자 위치
+// ==========================
+// 한자 데이터
+// ==========================
+
+
+const kanjiList =
+(typeof n3Kanji !== "undefined")
+?
+n3Kanji
+:
+[];
+
+
+
+
+// ==========================
+// 현재 위치
+// ==========================
+
 
 let current = 0;
 
 
 
-// 사용자 저장 데이터
 
-let userData = JSON.parse(
+
+// ==========================
+// 사용자 데이터
+// ==========================
+
+
+let userData;
+
+
+try{
+
+
+userData =
+JSON.parse(
 localStorage.getItem("kanjiMate")
-)
-||
+);
+
+
+
+}
+catch(e){
+
+
+userData = null;
+
+
+}
+
+
+
+
+if(
+!userData ||
+!Array.isArray(userData.learned)
+){
+
+
+userData =
 {
+
 level:1,
+
 exp:0,
+
 learned:[]
+
 };
 
 
-
-
-
-// 화면 업데이트
-
-function updateScreen(){
-
-
-document.getElementById("level").innerText =
-userData.level;
-
-
-document.getElementById("exp").innerText =
-userData.exp;
-
-
-document.getElementById("learnedCount").innerText =
-userData.learned.length;
-
-
-
-let percent =
-(userData.learned.length / 200) * 100;
-
-
-document.getElementById("progressBar").style.width =
-percent + "%";
-
-
-
-showKanji();
-
-showBook();
-
-
-}
-
-
-
-
-
-// 한자 표시
-
-function showKanji(){
-
-
-let data = kanjiList[current];
-
-
-document.getElementById("kanji").innerText =
-data.kanji;
-
-
-document.getElementById("meaning").innerText =
-data.meaning;
-
-
-document.getElementById("onyomi").innerText =
-data.onyomi;
-
-
-document.getElementById("kunyomi").innerText =
-data.kunyomi;
-
-
-if(data.words){
-
-
-document.getElementById("words").innerHTML =
-data.words.join("<br>");
-
-
-}
-
-
-}
-
-
-
-
-
-// 다음 한자
-
-function nextKanji(){
-
-
-current++;
-
-
-if(current >= kanjiList.length){
-
-current = 0;
-
-}
-
-
-showKanji();
-
-
 }
 
 
@@ -129,98 +87,11 @@ showKanji();
 
 
 
-// 학습 완료
 
-function remember(isKnow){
-
-
-let data =
-kanjiList[current];
-
-
-
-if(isKnow){
-
-
-if(!userData.learned.includes(data.kanji)){
-
-
-userData.learned.push(data.kanji);
-
-
-userData.exp += 10;
-
-
-levelCheck();
-
-
-saveData();
-
-
-alert(
-"🎉 "+data.kanji+" 학습 완료!\n+10 EXP"
-);
-
-
-}
-
-
-}
-
-
-else{
-
-
-alert(
-"📚 다시 복습해봐요!"
-);
-
-
-}
-
-
-
-updateScreen();
-
-
-}
-
-
-
-
-
-
-
-// 레벨업
-
-function levelCheck(){
-
-
-if(userData.exp >=100){
-
-
-userData.level++;
-
-userData.exp=0;
-
-
-alert(
-"🎉 LEVEL UP!"
-);
-
-
-}
-
-
-}
-
-
-
-
-
-
-
+// ==========================
 // 저장
+// ==========================
+
 
 function saveData(){
 
@@ -241,17 +112,459 @@ JSON.stringify(userData)
 
 
 
-// 도감
+
+
+
+// ==========================
+// 화면 업데이트
+// ==========================
+
+
+function updateScreen(){
+
+
+
+let level =
+document.getElementById(
+"level"
+);
+
+
+
+let exp =
+document.getElementById(
+"exp"
+);
+
+
+
+let learned =
+document.getElementById(
+"learnedCount"
+);
+
+
+
+let progress =
+document.getElementById(
+"progressBar"
+);
+
+
+
+
+
+if(level){
+
+level.innerText =
+userData.level;
+
+}
+
+
+
+
+
+if(exp){
+
+exp.innerText =
+userData.exp;
+
+}
+
+
+
+
+
+if(learned){
+
+learned.innerText =
+userData.learned.length;
+
+}
+
+
+
+
+
+if(progress){
+
+
+let percent = 0;
+
+
+
+if(kanjiList.length > 0){
+
+
+percent =
+(
+userData.learned.length
+/
+kanjiList.length
+)
+*
+100;
+
+
+}
+
+
+
+progress.style.width =
+percent+"%";
+
+
+}
+
+
+
+
+
+
+if(
+document.getElementById(
+"kanji"
+)
+){
+
+
+showKanji();
+
+
+}
+
+
+
+
+
+showBook();
+
+
+updateGrowth();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ==========================
+// 한자 표시
+// ==========================
+
+
+function showKanji(){
+
+
+
+let data =
+kanjiList[current];
+
+
+
+if(!data) return;
+
+
+
+
+
+let ids = {
+
+
+kanji:"kanji",
+
+meaning:"meaning",
+
+onyomi:"onyomi",
+
+kunyomi:"kunyomi",
+
+words:"words",
+
+example:"example"
+
+
+};
+
+
+
+
+
+if(
+document.getElementById(ids.kanji)
+){
+
+document.getElementById(ids.kanji)
+.innerText =
+data.kanji;
+
+
+}
+
+
+
+
+
+if(
+document.getElementById(ids.meaning)
+){
+
+document.getElementById(ids.meaning)
+.innerText =
+data.meaning;
+
+
+}
+
+
+
+
+
+if(
+document.getElementById(ids.onyomi)
+){
+
+document.getElementById(ids.onyomi)
+.innerText =
+data.onyomi;
+
+
+}
+
+
+
+
+
+if(
+document.getElementById(ids.kunyomi)
+){
+
+document.getElementById(ids.kunyomi)
+.innerText =
+data.kunyomi || "없음";
+
+
+}
+
+
+
+
+
+if(
+document.getElementById(ids.words)
+){
+
+document.getElementById(ids.words)
+.innerHTML =
+(data.words || [])
+.join("<br>");
+
+
+}
+
+
+
+
+
+if(
+document.getElementById(ids.example)
+){
+
+document.getElementById(ids.example)
+.innerText =
+data.example || "";
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ==========================
+// 다음 한자
+// ==========================
+
+
+function nextKanji(){
+
+
+
+current++;
+
+
+
+
+if(
+current >= kanjiList.length
+){
+
+
+current = 0;
+
+
+}
+
+
+
+showKanji();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ==========================
+// 한자 학습 완료
+// ==========================
+
+
+function remember(isKnow){
+
+
+
+let data =
+kanjiList[current];
+
+
+
+if(!data) return;
+
+
+
+
+
+if(!isKnow){
+
+
+alert(
+"📖 다시 복습해봐요!"
+);
+
+
+return;
+
+
+}
+
+
+
+
+
+
+if(
+userData.learned.includes(
+data.kanji
+)
+){
+
+
+alert(
+"이미 학습한 한자입니다."
+);
+
+
+
+return;
+
+
+}
+
+
+
+
+
+
+userData.learned.push(
+data.kanji
+);
+
+
+
+
+addExp(10);
+
+
+
+
+alert(
+
+"📚 "
++
+data.kanji
++
+" 학습 완료!\n+10 EXP"
+
+);
+
+
+
+
+saveData();
+
+
+updateScreen();
+
+
+
+}
+
+// ==========================
+// KanjiMate Main System
+// FINAL VERSION 2 / 4
+// ==========================
+
+
+
+
+
+// ==========================
+// 한자 도감
+// ==========================
+
 
 function showBook(){
 
 
+
 let book =
-document.getElementById("book");
+document.getElementById(
+"book"
+);
 
 
 
-if(userData.learned.length===0){
+if(!book) return;
+
+
+
+
+
+if(
+userData.learned.length === 0
+){
 
 
 book.innerHTML =
@@ -260,13 +573,25 @@ book.innerHTML =
 
 return;
 
+
 }
 
 
 
+
+
 book.innerHTML =
+
 userData.learned
-.map(item=>"✅ "+item)
+
+.map(
+
+item =>
+
+"✅ " + item
+
+)
+
 .join("<br>");
 
 
@@ -277,201 +602,327 @@ userData.learned
 
 
 
-// 시작
-
-updateScreen();
-
-// 하단 메뉴 이동 기능
-
-const navItems = document.querySelectorAll(".bottom-nav button");
-
-navItems.forEach(item => {
-
-    item.addEventListener("click", () => {
-
-        const page = item.dataset.page;
-
-        document.querySelectorAll(".page").forEach(section=>{
-            section.style.display="none";
-        });
 
 
-        const target = document.getElementById(page);
-
-        if(target){
-            target.style.display="block";
-        }
-
-    });
-
-});
 
 // ==========================
-// 학습 탭 기능
+// 학습 화면
 // ==========================
+
+
 
 let studyIndex = 0;
 
-let learnedKanji = JSON.parse(
-localStorage.getItem("learnedKanji")
-) || [];
+
+
 
 
 
 function loadStudy(){
 
-const data = n3Kanji[studyIndex];
 
 
-document.getElementById("studyList").innerHTML = `
+let data =
+kanjiList[studyIndex];
+
+
+
+let box =
+document.getElementById(
+"studyList"
+);
+
+
+
+if(
+!box ||
+!data
+){
+
+return;
+
+}
+
+
+
+
+
+
+box.innerHTML = `
+
+
 
 <div class="study-box">
 
-<h1>${data.kanji}</h1>
 
-<h2>${data.meaning}</h2>
+
+<h1>
+
+${data.kanji}
+
+</h1>
+
+
+
+
+<h2>
+
+${data.meaning}
+
+</h2>
+
+
 
 
 <p>
+
 음독 : ${data.onyomi}
+
 </p>
 
 
+
+
 <p>
+
 훈독 : ${data.kunyomi || "없음"}
+
 </p>
 
 
-<h3>단어</h3>
+
+
+<h3>
+
+단어
+
+</h3>
+
+
+
 
 <p>
-${data.words.join("<br>")}
+
+${(data.words || []).join("<br>")}
+
 </p>
 
 
+
+
 <p>
+
 예문 :
-${data.example}
+${data.example || ""}
+
 </p>
+
+
 
 
 <button onclick="completeStudy()">
+
 ✅ 학습 완료
+
 </button>
 
 
+
+
 <p>
-${studyIndex + 1} / ${n3Kanji.length}
+
+${studyIndex + 1}
+/
+${kanjiList.length}
+
 </p>
+
+
 
 
 </div>
 
 
-<button onclick="prevKanji()">
+
+
+
+<button onclick="prevStudy()">
+
 ⬅ 이전
+
 </button>
 
 
-<button onclick="nextStudyKanji()">
+
+
+<button onclick="nextStudy()">
+
 다음 ➡
+
 </button>
+
+
 
 `;
 
+
+
+
 }
 
 
 
 
-function nextStudyKanji(){
 
-if(studyIndex < n3Kanji.length-1){
+
+
+
+
+function nextStudy(){
+
+
+
+if(
+studyIndex < kanjiList.length - 1
+){
+
 
 studyIndex++;
 
+
 }
+
+
 
 loadStudy();
 
+
+
 }
 
 
 
 
-function prevKanji(){
 
-if(studyIndex > 0){
+
+
+
+
+function prevStudy(){
+
+
+
+if(
+studyIndex > 0
+){
+
 
 studyIndex--;
 
+
 }
+
+
 
 loadStudy();
 
+
+
 }
 
 
+
+
+
+
+
+
+
+// ==========================
+// 학습 완료 처리
+// ==========================
 
 
 function completeStudy(){
 
-let current = n3Kanji[studyIndex].kanji;
 
 
-if(!learnedKanji.includes(current)){
+let data =
+kanjiList[studyIndex];
 
-learnedKanji.push(current);
 
-localStorage.setItem(
-"learnedKanji",
-JSON.stringify(learnedKanji)
+
+if(!data) return;
+
+
+
+
+
+if(
+userData.learned.includes(
+data.kanji
+)
+){
+
+
+
+alert(
+"이미 학습한 한자입니다."
 );
 
-}
 
 
-updateGrowth();
+return;
 
 
-alert("학습 완료! 🎉");
-
-}
-
-
-
-
-function updateGrowth(){
-
-let count = learnedKanji.length;
-
-
-document.getElementById("learnedCount").innerText=count;
-
-
-document.getElementById("progressBar").style.width =
-(count / n3Kanji.length * 100)+"%";
 
 }
 
 
 
 
-// 학습 버튼 클릭 시 실행
 
-document.querySelector(
-'[data-page="study"]'
-).addEventListener(
-"click",
-function(){
 
-loadStudy();
+userData.learned.push(
+data.kanji
+);
 
-});
+
+
+
+addExp(10);
+
+
+
+
+alert(
+"📚 학습 완료!\n+10 EXP"
+);
+
+
+
+
+saveData();
+
+
+updateScreen();
+
+
+
+}
+
+
+
+
+
+
+
+
 
 // ==========================
 // 퀴즈 시스템
 // ==========================
+
 
 
 let quizAnswer = "";
@@ -482,15 +933,31 @@ let quizCount = 0;
 
 
 
+
+
+
+
 function startQuiz(){
+
+
 
 quizScore = 0;
 
+
 quizCount = 0;
+
+
 
 nextQuiz();
 
+
+
 }
+
+
+
+
+
 
 
 
@@ -498,67 +965,167 @@ nextQuiz();
 function nextQuiz(){
 
 
-let randomIndex = 
-Math.floor(Math.random()*n3Kanji.length);
+
+if(
+kanjiList.length === 0
+){
+
+return;
+
+}
 
 
-let question = n3Kanji[randomIndex];
 
 
-quizAnswer = question.meaning;
+
+
+let random =
+
+Math.floor(
+
+Math.random()
+*
+kanjiList.length
+
+);
+
+
+
+
+
+
+let question =
+
+kanjiList[random];
+
+
+
+
+
+
+quizAnswer =
+question.meaning;
+
+
+
+
 
 
 
 let choices = [
+
 question.meaning
+
 ];
 
 
 
-while(choices.length < 4){
-
-let random =
-n3Kanji[
-Math.floor(Math.random()*n3Kanji.length)
-].meaning;
 
 
-if(!choices.includes(random)){
 
-choices.push(random);
+
+while(
+choices.length < 4
+){
+
+
+
+let randomData =
+
+kanjiList[
+
+Math.floor(
+
+Math.random()
+*
+kanjiList.length
+
+)
+
+];
+
+
+
+
+
+
+if(
+!choices.includes(
+randomData.meaning
+)
+){
+
+
+choices.push(
+randomData.meaning
+);
+
 
 }
 
+
+
 }
+
+
+
+
+
+
 
 
 
 choices.sort(
+
 ()=>Math.random()-0.5
+
 );
+
+
+
+
+
 
 
 
 let html = `
 
 
+
 <h2>
-문제 ${quizCount+1}
+
+문제 ${quizCount + 1}
+
 </h2>
 
 
+
+
 <h1>
+
 ${question.kanji}
+
 </h1>
 
 
+
+
 <p>
-뜻을 고르세요
+
+뜻을 선택하세요
+
 </p>
 
 
 
+
 `;
+
+
+
+
+
+
 
 
 
@@ -567,25 +1134,104 @@ choices.forEach(choice=>{
 
 html += `
 
-<button onclick="checkAnswer('${choice}')">
+
+
+<button class="quiz-btn">
 
 ${choice}
 
 </button>
 
+
+
+
 <br>
 
+
+
+
 `;
+
+
 
 });
 
 
 
-document.getElementById("quizBox").innerHTML = html;
+
+
+
+
+
+let quizBox =
+
+document.getElementById(
+"quizBox"
+);
+
+
+
+
+
+
+
+if(quizBox){
+
+
+
+quizBox.innerHTML =
+html;
+
+
+
+
+
+
+let buttons =
+
+quizBox.querySelectorAll(
+".quiz-btn"
+);
+
+
+
+
+
+
+buttons.forEach(button=>{
+
+
+
+button.onclick = function(){
+
+
+
+checkAnswer(
+this.innerText
+);
+
+
+
+};
+
+
+
+});
+
+
 
 
 
 }
+
+
+
+}
+
+
+
+
+
 
 
 
@@ -593,30 +1239,53 @@ document.getElementById("quizBox").innerHTML = html;
 function checkAnswer(answer){
 
 
-if(answer === quizAnswer){
+
+
+
+if(
+answer === quizAnswer
+){
+
 
 
 quizScore++;
 
 
+
 addExp(20);
 
 
-alert(
-"🎉 정답! +20 EXP"
-);
-
-
-}else{
 
 
 alert(
-"😢 오답!\n정답: "
-+ quizAnswer
+"🎉 정답!\n+20 EXP"
 );
+
 
 
 }
+
+
+
+else{
+
+
+
+alert(
+
+"😢 오답!\n정답 : "
+
++
+quizAnswer
+
+);
+
+
+
+}
+
+
+
 
 
 
@@ -624,26 +1293,63 @@ quizCount++;
 
 
 
-if(quizCount < 10){
+
+
+
+
+if(
+quizCount < 10
+){
+
+
 
 nextQuiz();
 
 
-}else{
+
+}
 
 
-document.getElementById("quizBox").innerHTML = `
+
+else{
+
+
+
+let quizBox =
+
+document.getElementById(
+"quizBox"
+);
+
+
+
+
+
+if(quizBox){
+
+
+
+quizBox.innerHTML = `
+
 
 
 <h2>
-퀴즈 종료!
+
+🎉 퀴즈 종료!
+
 </h2>
 
 
+
+
 <p>
-점수:
-${quizScore} / 10
+
+점수 :
+${quizScore}/10
+
 </p>
+
+
 
 
 <button onclick="startQuiz()">
@@ -653,138 +1359,452 @@ ${quizScore} / 10
 </button>
 
 
+
+
 `;
 
-}
 
 
 }
+
+
+
+}
+
+
+
+}
+
+// ==========================
+// KanjiMate Main System
+// FINAL VERSION 3 / 4
+// ==========================
+
+
+
+
+
+// ==========================
+// EXP / 레벨 시스템
+// ==========================
+
+
 
 function addExp(amount){
 
-let exp =
-Number(
-localStorage.getItem("exp")
-) || 0;
 
 
-exp += amount;
+userData.exp += amount;
 
 
-localStorage.setItem(
-"exp",
-exp
+
+
+
+
+while(
+userData.exp >= 100
+){
+
+
+
+userData.level++;
+
+
+
+userData.exp -= 100;
+
+
+
+
+
+
+alert(
+
+"🎉 LEVEL UP!\nLv."
+
++
+userData.level
+
 );
 
 
-let expBox =
-document.getElementById("exp");
-
-
-if(expBox){
-
-expBox.innerText = exp;
-
-}
 
 }
 
 
-// 버튼 연결
-window.startQuiz = startQuiz;
-window.checkAnswer = checkAnswer;
+
+
+
+
+saveData();
+
+
+
+updateGrowth();
+
+
+
+}
+
+
+
+
+
+
+
+
 
 // ==========================
 // 성장 시스템
 // ==========================
 
 
+
 function updateGrowth(){
 
 
-let exp =
-Number(
-localStorage.getItem("exp")
-) || 0;
+
+let growthLevel =
+userData.level;
 
 
 
-let learned =
-JSON.parse(
-localStorage.getItem("learnedKanji")
-) || [];
+let growthExp =
+userData.exp;
 
 
 
-let level =
-Math.floor(exp / 100) + 1;
+let learnedCount =
+userData.learned.length;
 
 
 
-let levelExp =
-exp % 100;
 
 
+
+
+
+let levelBox =
 
 document.getElementById(
 "growthLevel"
-).innerText = level;
+);
 
 
+
+
+
+
+if(levelBox){
+
+
+
+levelBox.innerText =
+growthLevel;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+let expBox =
 
 document.getElementById(
 "growthExp"
-).innerText = levelExp;
+);
 
 
+
+
+
+
+if(expBox){
+
+
+
+expBox.innerText =
+growthExp;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+let countBox =
 
 document.getElementById(
 "growthCount"
-).innerText =
-learned.length;
+);
 
 
+
+
+
+
+if(countBox){
+
+
+
+countBox.innerText =
+learnedCount;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+let growthBar =
 
 document.getElementById(
 "growthBar"
-).style.width =
-levelExp + "%";
+);
+
+
+
+
+
+
+if(growthBar){
+
+
+
+growthBar.style.width =
+growthExp + "%";
+
+
+
+}
+
+
+
+
+
+
 
 
 
 let title =
+
+document.getElementById(
+"title"
+);
+
+
+
+
+
+
+if(title){
+
+
+
+if(
+growthLevel >= 10
+){
+
+
+
+title.innerText =
+"🏆 한자 마스터";
+
+
+
+}
+
+
+
+else if(
+growthLevel >= 5
+){
+
+
+
+title.innerText =
+"📚 N3 도전자";
+
+
+
+}
+
+
+
+else if(
+growthLevel >= 3
+){
+
+
+
+title.innerText =
+"🌱 한자 탐험가";
+
+
+
+}
+
+
+
+else{
+
+
+
+title.innerText =
 "🐣 한자 새싹";
 
 
 
-if(level >= 3){
+}
 
-title =
-"🌱 한자 탐험가";
+
 
 }
 
 
-if(level >= 5){
-
-title =
-"📚 N3 도전자";
 
 }
 
 
-if(level >= 10){
 
-title =
-"🏆 한자 마스터";
+
+
+
+
+
+// ==========================
+// 초기 성장 데이터 표시
+// ==========================
+
+
+
+function resetGrowth(){
+
+
+
+userData.level = 1;
+
+
+userData.exp = 0;
+
+
+userData.learned = [];
+
+
+
+saveData();
+
+
+
+updateScreen();
+
+
 
 }
 
+// ==========================
+// KanjiMate Main System
+// FINAL VERSION 4 / 4
+// ==========================
 
+
+
+
+
+// ==========================
+// 화면 이동
+// ==========================
+
+
+
+const navItems =
+
+document.querySelectorAll(
+"nav button"
+);
+
+
+
+
+
+
+navItems.forEach(item=>{
+
+
+
+item.addEventListener(
+"click",
+()=>{
+
+
+
+let page =
+
+item.dataset.page;
+
+
+
+
+
+
+
+document
+.querySelectorAll(".page")
+.forEach(section=>{
+
+
+
+section.style.display =
+"none";
+
+
+
+});
+
+
+
+
+
+
+
+
+
+let target =
 
 document.getElementById(
-"title"
-).innerText = title;
+page
+);
+
+
+
+
+
+
+
+if(target){
+
+
+
+target.style.display =
+"block";
 
 
 
@@ -793,12 +1813,169 @@ document.getElementById(
 
 
 
-// 앱 시작 시 성장 정보 표시
 
-window.addEventListener(
-"load",
-function(){
+
+
+
+
+if(page === "growth"){
+
+
 
 updateGrowth();
 
+
+
+}
+
+
+
+
+
+
+
+
+
+if(page === "study"){
+
+
+
+loadStudy();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+if(page === "quiz"){
+
+
+
+startQuiz();
+
+
+
+}
+
+
+
+
+
+
+
+}
+
+);
+
+
+
 });
+
+
+
+
+
+
+
+
+
+// ==========================
+// 버튼 전역 연결
+// ==========================
+
+
+
+window.startQuiz =
+
+startQuiz;
+
+
+
+
+
+window.checkAnswer =
+
+checkAnswer;
+
+
+
+
+
+window.nextKanji =
+
+nextKanji;
+
+
+
+
+
+window.remember =
+
+function(isKnow){
+
+
+remember(isKnow);
+
+
+};
+
+
+
+
+
+window.nextStudy =
+
+nextStudy;
+
+
+
+
+
+window.prevStudy =
+
+prevStudy;
+
+
+
+
+
+window.completeStudy =
+
+completeStudy;
+
+
+
+
+
+
+
+
+
+// ==========================
+// 페이지 초기 설정
+// ==========================
+
+
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+
+updateScreen();
+
+
+
+
+
+}
+
+);
