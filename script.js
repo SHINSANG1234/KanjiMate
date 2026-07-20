@@ -677,7 +677,6 @@ exp
 );
 
 
-
 let expBox =
 document.getElementById("exp");
 
@@ -688,5 +687,9 @@ expBox.innerText = exp;
 
 }
 
-
 }
+
+
+// 버튼 연결
+window.startQuiz = startQuiz;
+window.checkAnswer = checkAnswer;
